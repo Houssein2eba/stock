@@ -4,8 +4,8 @@
         <div class="max-w-2xl  py-6 px-4 sm:px-6 lg:px-8">
              <x-input-label :value="__('Search')" />
                 <label>{{$search}}</label>
-                <x-text-input wire:model.live="search" id="search" class="block mt-1 w-full" type="text" name="search"  autofocus autocomplete="search" />
-             
+                <x-text-input wire:model="search" id="search" class="block mt-1 w-full" type="text" name="search"  autofocus autocomplete="search" />
+             <button wire:click="searche" class="bg-blue-600 text-white px-4 py-4">search</button>
         </div>
     
         

@@ -10,19 +10,22 @@ class ListEmployes extends Component
     public $search='';
     public $employees = [];
         
-    public function mount(){
+    // public function mount(){
         
-        $this->employees= User::with('roles')->get();
-    }
-    public function updated(){
-        $this->employees=User::with('roles')->where('name','like','%'.$this->search.'%')->get();
+    //     $this->employees= User::with('roles')->get();
+    // }
+    // public function updated(){
+    //     $this->employees=User::with('roles')->where('name','like','%'.$this->search.'%')->get();
 
-    }
-    public function search(){
+    // }
+    public function searche(){
+        
         $this->employees=User::with('roles')->where('name','like','%'.$this->search.'%')->get();
     }
     public function render()
     {
-        return view('livewire.employees.list-employes');
+        $this->employees= User::with('roles')->get();
+        return view('livewire.employees.list-employes',[
+            'employees'=>$this->employees]);
     }
 }
