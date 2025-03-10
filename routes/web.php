@@ -30,8 +30,8 @@ Route::view('profile', 'profile')
 
 Route::middleware(['auth', 'verified'])->group(function () {
       Route::get('/products',\App\Livewire\Products\Index::class)->name('products');
-      Route::get('/addEmployee',\App\Livewire\Employees\Create::class)->name('addEmploye');
-      Route::get('/listEmployes',\App\Livewire\Employees\Index::class)->name('listEmployes');
+      Route::get('/addEmployee',\App\Livewire\Employees\Create::class)->name('addEmploye')->can('notifications', \App\Models\User::class);
+      Route::get('/listEmployes',\App\Livewire\Employees\Index::class)->name('listEmployes')->can('view_users', \App\Models\User::class);
       Route::get('/editEmployee/{idUser}',\App\Livewire\Employees\Show::class)->name('EditEmployee');
     });
 

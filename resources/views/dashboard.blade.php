@@ -3,8 +3,8 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
-            @dd(Auth::user()->roles->first()->name)
-           {{ Auth::user()->role() }}
+            
+           {{ Auth::user()->roles->pluck('name')->first() }}
            
            @foreach (Auth::user()->getPermissionsViaRoles()->pluck('name') as $permission )
                {{ $permission}}
