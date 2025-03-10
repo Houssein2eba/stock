@@ -54,10 +54,10 @@
             </div>
             <div class="mt-4">
                 <x-input-label for="phone" :value="__('Roles')" />
-                <select wire:model="role" id="role" class="block mt-1 w-full" name="role" multiple>
+                <select wire:model="role" id="role" class="block mt-1 w-full" name="role" >
                     
                     @foreach ($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('role')" class="mt-2" />

@@ -4,8 +4,7 @@ namespace App\Livewire\Employees;
 
 use App\Models\User;
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+
 
 class Index extends Component
 {

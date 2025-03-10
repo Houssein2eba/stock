@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'password',
         'status',
+        
     ];
 
     /**
@@ -55,9 +56,11 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     return $this->morphToMany(Permission::class, 'model', 'model_has_permissions', 'model_id', 'permission_id');
 }
-public function directRole(){
-    return $this->morphToMany(Role::class,'model_has_roles','model_id','role_id');
+
+public function role(){
+    return $this->belongsTo(Role::class);
 }
+
     
  
 }

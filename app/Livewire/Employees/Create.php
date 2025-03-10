@@ -24,10 +24,11 @@ class Create extends Component
         'email'=>'required|string|email|max:255|unique:users',
         'password'=>'required|string|min:8|confirmed',
         'password_confirmation'=>'required|string|min:8|same:password',
-        'role'=>'required|array|min:1|exists:roles,id',
-        'phone'=>'required|string|regex:/^2[0-9]{7}$/',
+        'role'=>'required|string|min:1|exists:roles,name',
+        'phone'=>'required|string|unique:users|regex:/^[2-4][0-9]{7}$/',
     ];
     public function addEmploye(){
+        
         $this->validate();
 
         $user=User::create([
@@ -35,12 +36,14 @@ class Create extends Component
             'email'=>$this->email,
             'phone'=>$this->phone,
             'password'=>bcrypt($this->password),
-           
+             
             
         ]);
-        $this->role=Role::find($this->role)->pluck('id');
+        
+        
         
         $user->assignRole($this->role);
+        
         $this->reset();
         session()->flash('success','employee added successfully');
         redirect()->route('listEmployes');

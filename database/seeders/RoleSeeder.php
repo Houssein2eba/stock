@@ -15,17 +15,11 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $user=User::create([
-            'name'=>'houssein',
-            'email'=>'ebahoussein@gmail.com',
-            'email_verified_at'=>now(),
-            'password'=>bcrypt('00000000'),
-            'phone'=>'30684078',
-            'status'=>'active',
-         ]);
-        $owner = Role::create(['name' => 'owner']);
-        $owner->syncPermissions(Permission::all());
-        $user->assignRole($owner);
+        
+        // $owner = User::find(2);
+        // $owner->syncPermissions(Permission::all());
+        $owner = User::find(2);
+        $owner->assignRole('commercant');
 
 
     }

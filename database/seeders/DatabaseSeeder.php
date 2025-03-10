@@ -15,12 +15,27 @@ class DatabaseSeeder extends Seeder
      */
     
     public function run(): void
+    
     {
-            // Create roles
-        Permission::create(['name'=>'view_products']);
-     $role = Role::create(['name' => 'employee']);
-     $role->givePermissionTo('notifications');
-     $role->givePermissionTo('view_products');
+     $role1 = Role::create(['name' => 'commerçant']);
+
+        $user=User::create([
+            'name'=>'houssein',
+            'email'=>'ebahoussein@gmail.com',
+            'email_verified_at'=>now(),
+            'password'=>bcrypt('00000000'),
+            'phone'=>'30684078',
+            'status'=>'active',
+            'role_id'=>$role1->id
+         ]);
+      
+     $user->assignRole($role1);
+     $role2= Role::create(['name' => 'manager']);
+     $role3=Role::create(['name'=>'caissier']);
+     $permissions=Permission::pluck('id','id')->all();
+     $role1->syncPermissions($permissions);
+     $role2->givePermissionTo('notifications');
+     $role3->givePermissionTo('view_products');
 
 
 

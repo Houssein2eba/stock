@@ -28,7 +28,7 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::middleware(['auth', 'verified', 'role:owner'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
       Route::get('/products',\App\Livewire\Products\Index::class)->name('products');
       Route::get('/addEmployee',\App\Livewire\Employees\Create::class)->name('addEmploye');
       Route::get('/listEmployes',\App\Livewire\Employees\Index::class)->name('listEmployes');
