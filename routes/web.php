@@ -1,8 +1,8 @@
 <?php
 
 
-use App\Livewire\Employees\AddEmploye;
-use App\Livewire\Employees\ListEmployes;
+
+
 use App\Livewire\Employees\Main;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
+
+Route::view('/', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -29,10 +29,10 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::middleware(['auth', 'verified', 'role:owner'])->group(function () {
-
-      Route::get('/addEmploye',AddEmploye::class)->name('addEmploye');
-      Route::get('/listEmployes',ListEmployes::class)->name('listEmployes');
-      Route::get('/Employees',Main::class)->name('Employees');
+      Route::get('/products',\App\Livewire\Products\Index::class)->name('products');
+      Route::get('/addEmployee',\App\Livewire\Employees\Create::class)->name('addEmploye');
+      Route::get('/listEmployes',\App\Livewire\Employees\Index::class)->name('listEmployes');
+      Route::get('/editEmployee/{idUser}',\App\Livewire\Employees\Show::class)->name('EditEmployee');
     });
 
 require __DIR__.'/auth.php';

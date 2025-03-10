@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -14,14 +15,17 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles=[
-            'assistant',
-            'manager',
-        ];
-
-        foreach ($roles as $role) {
-            Role::create(['name' => $role]);
-        }
+        $user=User::create([
+            'name'=>'houssein',
+            'email'=>'ebahoussein@gmail.com',
+            'email_verified_at'=>now(),
+            'password'=>bcrypt('00000000'),
+            'phone'=>'30684078',
+            'status'=>'active',
+         ]);
+        $owner = Role::create(['name' => 'owner']);
+        $owner->syncPermissions(Permission::all());
+        $user->assignRole($owner);
 
 
     }

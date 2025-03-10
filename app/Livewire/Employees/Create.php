@@ -6,14 +6,11 @@ use App\Models\User;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
-class AddEmploye extends Component
+class Create extends Component
 {
-    public $roles = [];
+    
 
-    public function mount(){
-        $this->roles=Role::where('name','!=','owner')->get();
-        
-     }
+
 
     public $name='';
     public $email='';
@@ -41,7 +38,7 @@ class AddEmploye extends Component
            
             
         ]);
-        $this->role=Role::find($this->role);
+        $this->role=Role::find($this->role)->pluck('id');
         
         $user->assignRole($this->role);
         $this->reset();
@@ -50,6 +47,9 @@ class AddEmploye extends Component
     }
     public function render()
     {
-        return view('livewire.employees.add-employe');
+
+        return view('livewire.employees.create',[
+            'roles' => Role::where('name', '!=', 'owner')->get(),
+        ]);
     }
 }

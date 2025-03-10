@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->decimal('montant', 8, 2);
+            $table->enum('status', ['paye', 'non_paye'])->default('paye');
+            $table->foreignId('client_id')->nullable()->constrained('clients')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

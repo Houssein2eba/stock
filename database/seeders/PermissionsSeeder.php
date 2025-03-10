@@ -14,55 +14,29 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions =[
-            'Invoices',
-            'Invoice List',
-            'Paid Invoices',
-            'Partially Paid Invoices',
-            'Unpaid Invoices',
-            'Archived Invoices',
-            'Reports',
-            'Invoice Report',
-            'Customer Report',
-            'Users',
-            'User List',
-            'User Permissions',
-            'Settings',
-            'Products',
-            'Categories',
         
-            'Add Invoice',
-            'Delete Invoice',
-            'Export to EXCEL',
-            'Change Payment Status',
-            'Edit Invoice',
-            'Archive Invoice',
-            'Print Invoice',
-            'Add Attachment',
-            'Delete Attachment',
         
-            'Add User',
-            'Edit User',
-            'Delete User',
+        Permission::create(['name' => 'create_users']);
+        Permission::create(['name' => 'update_users']);
+        Permission::create(['name' => 'delete_users']);
+        Permission::create(['name' => 'create_role']);
+        Permission::create(['name' => 'update_role']);
+        Permission::create(['name' => 'delete_role']);
+        Permission::create(['name' => 'create_permission']);
+        Permission::create(['name' => 'update_permission']);
+        Permission::create(['name' => 'delete_permission']);
+        Permission::create(['name' => 'notifications']);
+        Permission::create(['name'=>'view_products']);
+        Permission::create(['name'=>'create_products']);
+        Permission::create(['name'=>'update_products']);
+        Permission::create(['name'=>'delete_products']);
+        Permission::create(['name'=>'create_categories']);
+        Permission::create(['name'=>'update_categories']);
+        Permission::create(['name'=>'delete_categories']);
+        Permission::create(['name'=>'create_commandes']);
+        Permission::create(['name'=>'update_commandes']);
+        Permission::create(['name'=>'delete_commandes']);
         
-            'View Permission',
-            'Add Permission',
-            'Edit Permission',
-            'Delete Permission',
-        
-            'Add Product',
-            'Edit Product',
-            'Delete Product',
-        
-            'Add Category',
-            'Edit Category',
-            'Delete Category',
-            'Notifications'
-        ]
-        ;
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
-        }
         
     }
 }

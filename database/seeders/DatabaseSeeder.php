@@ -17,21 +17,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
             // Create roles
-     $user=User::create([
-        'name'=>'houssein',
-        'email'=>'ebahoussein@gmail.com',
-        'email_verified_at'=>now(),
-        'password'=>bcrypt('00000000'),
-        'phone'=>'30684078',
-        'status'=>'active',
-     ]);
+        Permission::create(['name'=>'view_products']);
+     $role = Role::create(['name' => 'employee']);
+     $role->givePermissionTo('notifications');
+     $role->givePermissionTo('view_products');
 
-     // Create role and assign all permissions
-    $role = Role::create(['name' => 'owner']);
-    $role->syncPermissions(Permission::all()); // Directly sync all permissions
 
-    // Assign role to user
-    $user->assignRole($role);
 
 
     }

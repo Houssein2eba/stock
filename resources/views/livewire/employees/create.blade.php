@@ -1,13 +1,10 @@
-@if (session()->has('success'))
-    <div class="alert alert-success p-2 w-full rounded-md">
-        {{ session('success') }}
-    </div>
-    @elseif (session()->has('error'))
-    <div class="alert alert-danger p-2 w-full rounded-md">
-        {{ session('error') }}
-    </div>
-
-@endif
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __(request()->route()->getName()) }}
+        
+    </h2>
+</x-slot>
+<x-auth-session-status class="mb-4" :status="session('status')" />
 
 <div class="items-center justify-center max-h-screen ">
     <div class="rounded-lg shadow-lg max-w-xl m-auto bg-white  p-3 mt-10">
@@ -55,17 +52,30 @@
     
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
-            <div class="mt">
+            <div class="mt-4">
                 <x-input-label for="phone" :value="__('Roles')" />
                 <select wire:model="role" id="role" class="block mt-1 w-full" name="role" multiple>
-                    @foreach ($roles as $role)
                     
+                    @foreach ($roles as $role)
                         <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('role')" class="mt-2" />
             </div>
-    
+            {{-- <div class="mt-4">
+                <x-input-label :value="__('permissions')" />
+                <div class="flex flex-wrap gap-2">
+                    @foreach ($permissions as $permission)
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" wire:model="selectedPermissions" value="{{ $permission->id }}" class="form-checkbox h-5 w-5 text-indigo-600">
+                            <x-input-label :value="$permission->name" />
+                        </label>
+                    @endforeach
+                </div>
+                
+            </div> --}}
+
+            
             <div class="flex items-center justify-end mt-4">
     
     
