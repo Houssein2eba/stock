@@ -12,8 +12,8 @@ class Show extends Component
 {
     public $user;
     public  $roles = [];
-    public Role $current_role ;
-    public  $permissions = [];
+    public  $current_role='' ;
+    public   $permissions;
     public  $current_permissions = [];
 
     public string $name = '';
@@ -36,7 +36,7 @@ class Show extends Component
     {
         $this->user = User::findOrFail($idUser);
         $this->roles = Role::all(); 
-
+         $this->permissions = Permission::all();
         // Populate existing user data
         $this->name = $this->user->name;
         $this->email = $this->user->email;
@@ -44,7 +44,7 @@ class Show extends Component
 
         // Get current role and permissions
         $this->current_role = $this->user->getRoleNames()->first() ?? '';
-        $this->current_permissions = $this->user->permissions->pluck('name')->toArray();
+        $this->current_permissions = $this->user->getPermissionsViaRoles()->pluck('name')->toArray();
     }
 
     public function updateEmployee(): void

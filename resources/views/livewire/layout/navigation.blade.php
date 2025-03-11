@@ -50,11 +50,11 @@ new class extends Component
                         <!-- Dropdown Menu -->
                         <div x-show="employeesDropdownOpen" @click.away="employeesDropdownOpen = false" class="relative z-10 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                             <div class="py-1">
-                                @can('view_users', \App\Models\User::class)
+                                
                                 <x-dropdown-link :href="route('listEmployes')" wire:navigate>
                                     {{ __('View Employees') }}
                                 </x-dropdown-link>
-                                @endcan
+                                
                                 <x-dropdown-link :href="route('addEmploye')" wire:navigate>
                                     {{ __('Add Employee') }}
                                 </x-dropdown-link>
@@ -137,7 +137,7 @@ new class extends Component
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
-                        {{ __('Log Out') }}
+                        logout
                     </x-responsive-nav-link>
                 </button>
             </div>

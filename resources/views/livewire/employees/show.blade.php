@@ -47,7 +47,9 @@
             <div class="mt-4">
                 <x-input-label :value="__('Permissions')" />
                 <div class="flex flex-wrap gap-3">
-                    @foreach ($current_role->permission as $permission)
+                   
+                    @foreach ($permissions as $permission)
+                    
                         <label class="flex items-center space-x-2">
                             <input type="checkbox" wire:model="current_permissions" value="{{ $permission->name }}" class="form-checkbox h-5 w-5 text-indigo-600">
                             <span>{{ $permission->name }}</span>

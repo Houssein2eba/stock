@@ -4,26 +4,24 @@
     </h2>
 </x-slot>
 
-<div x-data="{
-        users: [],
-        roles: [],
-        search: '',
-        get filteredUsers() {
-            return this.users.filter(user => user.name.toLowerCase().includes(this.search.toLowerCase()));
-        }
-        
-    }"
-    x-init="users = await $wire.users"
->
+<div>
     <div class="bg-white shadow w-full mt-6">
         <div class="max-w-2xl py-6 px-4 sm:px-6 lg:px-8">
             <x-input-label :value="__('Search')" />
-            <x-text-input x-model="search" id="search" class="block mt-1 w-full" type="text" name="search" autofocus autocomplete="search" />
+            <x-text-input wire:model="search" id="search" class="block mt-1 w-full" type="text"  autofocus autocomplete="search" />
         </div>
     </div>
 
     <div class="flex justify-center py-6 h-fit">
         <div class="w-full max-w-4xl px-4 py-6 bg-white shadow-md rounded-lg">
+            <x-input-label :value="__('Filter by role')" />
+            <select wire:model="selectedRole" class="form-select w-full">
+                <option value="">{{ __('All users') }}</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+
             <table class="table-auto w-full border-collapse">
                 <thead>
                     <tr>
@@ -36,26 +34,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template x-for="user in filteredUsers" :key="user.id">
-                        <tr x-show="user.roles[0].name !== 'owner'">
-                            <td class="px-4 py-2 border-b"><span x-text="user.name"></span></td>
-                            <td class="px-4 py-2 border-b"><span x-text="user.phone"></span></td>
-                            <td class="px-4 py-2 border-b"><span x-text="user.roles[0].name"></span></td>
-                            <td class="px-4 py-2 border-b"><span x-text="user.salary"></span></td>
-                            <td class="px-4 py-2 border-b"><span x-text="user.status"></span></td>
+                    @forelse($users as $user)
+                        <tr>
+                            <td class="px-4 py-2 border-b">{{ $user->name }}</td>
+                            <td class="px-4 py-2 border-b">{{ $user->phone }}</td>
+                            <td class="px-4 py-2 border-b">{{ $user->getRoleNames()->implode(', ') }}</td>
+                            <td class="px-4 py-2 border-b">{{ $user->salary }}</td>
+                            <td class="px-4 py-2 border-b">{{ $user->status }}</td>
                             <td class="px-4 py-2 border-b">
-                                <a :href="'editEmployee/' + user.id" class="text-blue-500 hover:underline">{{ __('Edit') }}</a>
-
-                                <a href="#" class="text-red-500 hover:underline ml-4">{{ __('Delete') }}</a>
+                                @role('commercant')
+                                @if ($user->getRoleNames()->first() != 'commercant')
+                                    
+                                
+                                <a href="{{ route('EditEmployee', $user->id) }}" class="text-blue-500 hover:underline">{{ __('Edit') }}</a>
+                                <button wire:click="delete({{ $user->id }})" class="text-red-500 hover:underline ml-4">{{ __('Delete') }}</button>
                                 <a href="#" class="text-green-500 hover:underline ml-4">{{ __('Permissions') }}</a>
+                                @endif
+                                @endrole
                             </td>
                         </tr>
-                    </template>
-
-                    
-                    <tr x-show="filteredUsers.length === 0">
-                        <td colspan="6" class="text-center py-4 text-gray-500">{{ __('No users found') }}  ❌   </td>
-                    </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-gray-500">{{ __('No users found') }} ❌</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
