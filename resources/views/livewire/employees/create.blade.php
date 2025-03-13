@@ -8,7 +8,7 @@
 
 <div class="items-center justify-center max-h-screen ">
     <div class="rounded-lg shadow-lg max-w-xl m-auto bg-white  p-3 mt-10">
-        <form wire:submit.prevent="addEmploye">
+        <form wire:submit="store">
             <!-- Name -->
             <h1 class="block mt-4 text-center text-green-500 font-normal ">Add Employee</h1>
             <div>
@@ -55,9 +55,9 @@
             <div class="mt-4">
                 <x-input-label for="phone" :value="__('Roles')" />
                 <select wire:model="role" id="role" class="block mt-1 w-full" name="role" >
-                    
+                    <option value="" >Select a role</option>
                     @foreach ($roles as $role)
-                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        <option value="{{ $role }}">{{ $role }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('role')" class="mt-2" />

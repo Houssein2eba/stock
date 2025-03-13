@@ -61,6 +61,11 @@ new class extends Component
                             </div>
                         </div>
                     </div>
+                    <button>
+                        <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')" wire:navigate>
+                            {{ __('Roles') }}
+                        </x-nav-link>
+                    </button>
                 </div>
             </div>
 

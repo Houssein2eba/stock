@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
 }
 
 public function role(){
-    return $this->belongsTo(Role::class);
+    return $this->morphToMany(Role::class,'model','model_has_roles ','model_id','role_id');
 }
 
     

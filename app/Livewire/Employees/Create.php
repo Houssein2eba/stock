@@ -27,7 +27,7 @@ class Create extends Component
         'role'=>'required|string|min:1|exists:roles,name',
         'phone'=>'required|string|unique:users|regex:/^[2-4][0-9]{7}$/',
     ];
-    public function addEmploye(){
+    public function store(){
         
         $this->validate();
 
@@ -38,11 +38,10 @@ class Create extends Component
             'password'=>bcrypt($this->password),
              
             
-        ]);
+        ])->assignRole($this->role);
         
         
         
-        $user->assignRole($this->role);
         
         $this->reset();
         session()->flash('success','employee added successfully');
@@ -52,7 +51,7 @@ class Create extends Component
     {
 
         return view('livewire.employees.create',[
-            'roles' => Role::where('name', '!=', 'owner')->get(),
+            'roles' => Role::where('name', '!=', 'commercant')->get()->pluck('name')
         ]);
     }
 }

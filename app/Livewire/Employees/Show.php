@@ -25,7 +25,7 @@ class Show extends Component
         return [
             'name'               => 'required|string|max:255',
             'email'              => 'required|email|unique:users,email,' . $this->user->id,
-            'phone'              => 'required|regex:/^2[0-9]{7}$/',
+            'phone'              => 'required|regex:/^[2-4][0-9]{7}$/',
             'current_role'       => 'required|string',
             'current_permissions'=> 'required|array|min:1',
         ];
