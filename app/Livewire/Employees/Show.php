@@ -36,7 +36,6 @@ class Show extends Component
     {
         $this->user = User::findOrFail($idUser);
         
-         
         // Populate existing user data
         $this->name = $this->user->name;
         $this->email = $this->user->email;
@@ -45,7 +44,6 @@ class Show extends Component
         // Get current role and permissions
         $this->current_role = $this->user->getRoleNames()->first() ?? '';
         $this->current_permissions = $this->user->getPermissionNames()->toArray();
-        
     }
 
     public function updateEmployee(): void
@@ -67,7 +65,7 @@ class Show extends Component
         $this->user->syncPermissions($this->current_permissions);
 
         session()->flash('success', 'Employee updated successfully!');
-        
+        $this->redirect('/listEmployes',navigate:true);
     }
 
     public function render()

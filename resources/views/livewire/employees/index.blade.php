@@ -21,7 +21,7 @@
         
     </div> --}}
     
-
+   <h2 class="text-center text-lg"><x-auth-session-status :status="session('status')" /> </h2>
     
     <div class="flex justify-center py-6 h-fit">
         
