@@ -5,6 +5,7 @@
 </x-slot>
 
 <div class="flex justify-center items-center min-h-screen">
+     <x-auth-session-status :status="session('status')" />
     <div class="rounded-lg shadow-lg max-w-xl m-auto bg-white p-6 mt-10">
         <form wire:submit.prevent="updateEmployee">
             <!-- Title -->
@@ -36,8 +37,8 @@
                 <x-input-label for="role" :value="__('Role')" />
                 <select wire:model="current_role" id="role" class="block mt-1 w-full">
                     <option value="">{{ __('Select Role') }}</option>
-                    @foreach ($roles as $role)
-                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @foreach ($roles as $key => $role)
+                        <option value="{{ $role }}">{{ $role }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('current_role')" class="mt-2" />
@@ -48,11 +49,11 @@
                 <x-input-label :value="__('Permissions')" />
                 <div class="flex flex-wrap gap-3">
                    
-                    @foreach ($permissions as $permission)
+                    @foreach ($permissions as $key => $permission)
                     
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" wire:model="current_permissions" value="{{ $permission->name }}" class="form-checkbox h-5 w-5 text-indigo-600">
-                            <span>{{ $permission->name }}</span>
+                            <input type="checkbox" wire:model="current_permissions" value="{{ $permission }}" class="form-checkbox h-5 w-5 text-indigo-600">
+                            <span>{{ $permission }}</span>
                         </label>
                     @endforeach
                 </div>

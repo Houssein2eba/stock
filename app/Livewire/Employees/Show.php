@@ -11,9 +11,9 @@ use Spatie\Permission\Models\Role;
 class Show extends Component
 {
     public $user;
-    public  $roles = [];
+  
     public  $current_role='' ;
-    public   $permissions;
+    
     public  $current_permissions = [];
 
     public string $name = '';
@@ -35,8 +35,8 @@ class Show extends Component
     public function mount($idUser): void
     {
         $this->user = User::findOrFail($idUser);
-        $this->roles = Role::all(); 
-         $this->permissions = Permission::all();
+        
+         
         // Populate existing user data
         $this->name = $this->user->name;
         $this->email = $this->user->email;
@@ -44,7 +44,8 @@ class Show extends Component
 
         // Get current role and permissions
         $this->current_role = $this->user->getRoleNames()->first() ?? '';
-        $this->current_permissions = $this->user->getPermissionsViaRoles()->pluck('name')->toArray();
+        $this->current_permissions = $this->user->getPermissionNames()->toArray();
+        
     }
 
     public function updateEmployee(): void
@@ -66,11 +67,14 @@ class Show extends Component
         $this->user->syncPermissions($this->current_permissions);
 
         session()->flash('success', 'Employee updated successfully!');
-        redirect()->route('listEmployes');
+        
     }
 
     public function render()
     {
-        return view('livewire.employees.show');
+        return view('livewire.employees.show',[
+            'roles' => Role::pluck('name'),
+            'permissions' => Permission::pluck('name'),
+        ]);
     }
 }

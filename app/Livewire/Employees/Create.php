@@ -45,13 +45,14 @@ class Create extends Component
         
         $this->reset();
         session()->flash('success','employee added successfully');
-        redirect()->route('listEmployes');
+        return $this->redirect('/listEmployes',navigate: true);
     }
     public function render()
     {
 
         return view('livewire.employees.create',[
-            'roles' => Role::where('name', '!=', 'commercant')->get()->pluck('name')
+            'roles' => Role::select('name')->pluck('name')
+
         ]);
     }
 }

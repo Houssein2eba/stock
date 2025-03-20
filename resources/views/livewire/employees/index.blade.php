@@ -3,7 +3,6 @@
         {{ __(request()->route()->getName()) }}
     </h2>
 </x-slot>
-
 <div>
     {{-- <div class="bg-white shadow w-full mt-6">
         <div class="max-w-2xl py-6 px-4 my-4 sm:px-6 lg:px-8">
