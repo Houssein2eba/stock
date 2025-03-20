@@ -26,8 +26,8 @@ class Show extends Component
             'name'               => 'required|string|max:255',
             'email'              => 'required|email|unique:users,email,' . $this->user->id,
             'phone'              => 'required|regex:/^[2-4][0-9]{7}$/',
-            'current_role'       => 'required|string',
-            'current_permissions'=> 'required|array|min:1',
+            'current_role'       => 'required|string|exists:roles,name',
+            'current_permissions'=> 'required|array|min:1|exists:permissions,name',
         ];
     }
     
