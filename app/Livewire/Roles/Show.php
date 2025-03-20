@@ -18,7 +18,7 @@ class Show extends Component
         $role=Role::findOrFail($role_id);
         if($role!==null){
         $this->current_permissions = $role->permissions->pluck('name')->toArray();
-        $this->role = $role;
+        $this->role = $role->name;
          
         }else{
              session()->flash('status', 'Role does not exist.');
@@ -31,7 +31,7 @@ class Show extends Component
     }
     public function render()
     {
-        $permissions=Permission::all();
+        $permissions=Permission::select('name')->get();
         return view('livewire.roles.show',['permissions'=>$permissions]);
     }
 }
